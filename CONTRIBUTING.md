@@ -1,18 +1,20 @@
 # Contributing to smartgate-workflows
 
-感谢贡献！本仓库是纯内容型项目（YAML + Markdown），**不需要修改任何业务代码**。
+Thanks for contributing! This is a content-only project (YAML + Markdown). **No application code changes are required.**
 
-## 添加新 workflow
+**All contributed content must be in English** (SKILL.md, pipeline.yaml descriptions, examples, and ROUTING entries).
 
-1. 复制 `_template/` 下的文件到 `workflows/<your-workflow-name>/`
-2. 填写 `SKILL.md`（必须含 Purpose / When to use / When NOT to use / Returns / Composes with 五节）
-3. 填写 `pipeline.yaml`（见 `schema/pipeline.schema.json`）
-4. 至少添加一个 `examples/*.md` 具体案例
-5. 更新 [ROUTING.md](ROUTING.md)，说明与现有 workflow 的边界
+## Adding a new workflow
 
-## Primitive 白名单
+1. Copy files from `_template/` into `workflows/<your-workflow-name>/`
+2. Fill in `SKILL.md` (must include Purpose / When to use / When NOT to use / Returns / Composes with)
+3. Fill in `pipeline.yaml` (see `schema/pipeline.schema.json`)
+4. Add at least one concrete `examples/*.md`
+5. Update [ROUTING.md](ROUTING.md) and document boundaries vs existing workflows
 
-`pipeline.yaml` 中 `steps[].tool` **只能是**以下 7 个 primitive：
+## Primitive whitelist
+
+`pipeline.yaml` `steps[].tool` **must** be one of these 7 primitives:
 
 - `smart_fetch`
 - `smart_search`
@@ -22,20 +24,20 @@
 - `smart_memory`
 - `smart_pipe`
 
-**不接受**在本仓库定义新 primitive。如有需求，请至 [smartgate-sdk](https://github.com/smartgate-network/smartgate-sdk) 提 issue。
+**New primitives are not accepted in this repo.** Open an issue in [smartgate-sdk](https://github.com/smartgate-network/smartgate-sdk) instead.
 
-## Pull Request 要求
+## Pull request requirements
 
-- [ ] 已更新 [ROUTING.md](ROUTING.md)
-- [ ] 已提供至少一个 `examples/*.md`
-- [ ] `pipeline.yaml` 通过 schema 校验（CI 自动运行）
-- [ ] 未引入 7 个 primitive 之外的新 tool
+- [ ] Updated [ROUTING.md](ROUTING.md)
+- [ ] At least one `examples/*.md` provided
+- [ ] `pipeline.yaml` passes schema validation (CI runs automatically)
+- [ ] No tools outside the 7 primitives
 
-## 本地校验
+## Local validation
 
 ```bash
 pip install jsonschema pyyaml
 python tests/validate.py
 ```
 
-与 GitHub Actions 使用同一脚本。
+Same script as GitHub Actions.

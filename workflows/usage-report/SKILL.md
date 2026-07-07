@@ -1,17 +1,17 @@
 ## usage-report
 
-Purpose: 查询当前 API key 所属团队的 token 额度与使用情况，用于任务前预检或管理报表，不产出任何内容材料。
+Purpose: Query token allowance and usage for the team tied to the current API key — pre-flight checks or admin reports only; produces no content.
 
 When to use:
-- 大任务前预检：「还能跑 research-agent 吗」→ action=check
-- 管理报表：「本月用了多少 token」→ action=count
-- Agent 编排时在 expensive workflow 前自动 guard
+- Pre-flight before large jobs: “Can we still run research-agent?” → action=check
+- Admin reporting: “How many tokens did we use this month?” → action=count
+- Agent orchestration: auto-guard before expensive workflows
 
 When NOT to use:
-- 任何内容生产：调研、阅读、记忆 — 分别用 **research-agent**、**deep-reading**、**remember-and-recall**
-- 替代 Host LLM 对话或推理 — smart_budget_guard 不是 completion API
-- 记录单次任务消耗 — 由 runtime 在工具调用后 action=record（非本 workflow 范围）
+- Any content production (research, reading, memory) — use **research-agent**, **deep-reading**, or **remember-and-recall**
+- Substitute for Host LLM chat or reasoning — smart_budget_guard is not a completion API
+- Record per-task consumption — runtime uses action=record after tool calls (out of scope for this workflow)
 
-Returns: JSON 字符串。`check`：`data.allowed`（boolean）、`data.remaining`、`data.limit`、`data.used`。`count`：`data.used`、`data.period`、`data.breakdown`（按工具或时间粒度，若有）。
+Returns: JSON string. `check`: `data.allowed` (boolean), `data.remaining`, `data.limit`, `data.used`. `count`: `data.used`, `data.period`, `data.breakdown` (by tool or time bucket, if present).
 
-Composes with: 在 **research-agent** / **deep-reading** 前由 loader 或 Host 自动调用 check；管理面向用户直接展示 count 结果。
+Composes with: loader or Host calls check before **research-agent** / **deep-reading**; show count results directly to admins.

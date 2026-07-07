@@ -1,8 +1,8 @@
-## API Reference 精读
+## API reference deep-read
 
-用户意图: 精读 Stripe API 官方 OpenAPI 文档，提取 rate limit 相关说明
+User intent: Deep-read Stripe’s official OpenAPI spec and extract rate-limit guidance
 
-调用参数:
+Invocation params:
 
 ```json
 {
@@ -12,6 +12,6 @@
 }
 ```
 
-预期输出结构:
-- `results[0].data` — 抓取结果，含 `markdown`、`url`、`title`
-- `results[1].data` — 压缩结果，含 `compressed`、`ratio`、`original_tokens`、`compressed_tokens`
+Expected output shape:
+- `results[0].data` — fetch result with `markdown`, `url`, `title`
+- `results[1].data` — compression with `compressed`, `ratio`, `original_tokens`, `compressed_tokens`

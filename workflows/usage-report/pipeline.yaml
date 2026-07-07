@@ -8,7 +8,7 @@ params:
     enum:
       - check
       - count
-    description: check=额度是否允许继续；count=查询已用量
+    description: check=whether quota allows continuing; count=query usage so far
 steps:
   - tool: smart_budget_guard
     params:

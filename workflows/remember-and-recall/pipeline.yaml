@@ -10,19 +10,19 @@ params:
       - search
       - get
       - delete
-    description: smart_memory 操作类型
+    description: smart_memory operation type
   content:
     type: string
     required: false
-    description: action=add 时必填，要存储的文本
+    description: Required when action=add; text to store
   query:
     type: string
     required: false
-    description: action=search 时必填，检索关键词
+    description: Required when action=search; search keywords
   memory_id:
     type: string
     required: false
-    description: action=get 或 delete 时必填
+    description: Required when action=get or delete
 steps:
   - tool: smart_memory
     params:

@@ -1,8 +1,8 @@
-## 学术综述：RAG 评估方法
+## Academic survey: RAG evaluation methods
 
-用户意图: 收集 RAG 系统评估指标与 benchmark 的最新综述材料
+User intent: Collect recent survey material on RAG evaluation metrics and benchmarks
 
-调用参数:
+Invocation params:
 
 ```json
 {
@@ -14,8 +14,8 @@
 }
 ```
 
-预期输出结构:
-- `results[0].data.results[]` — 学术论文、技术博客等搜索命中
-- `results[1].data` — 各来源全文 markdown 数组
-- `results[2].data` — 语义去重后的 `deduped_text` 与 `removed_count`
-- `results[3].data` — 按 goal 预筛并压缩的 `compressed` 正文
+Expected output shape:
+- `results[0].data.results[]` — search hits (papers, blogs, etc.)
+- `results[1].data` — full-page markdown per source
+- `results[2].data` — semantically deduped `deduped_text` and `removed_count`
+- `results[3].data` — goal-filtered, compressed `compressed` text

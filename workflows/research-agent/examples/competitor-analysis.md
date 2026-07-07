@@ -1,8 +1,8 @@
-## 竞品分析：Notion vs Obsidian
+## Competitor analysis: Notion vs Obsidian
 
-用户意图: 对比 Notion 与 Obsidian 在 2026 年的核心功能与定价策略
+User intent: Compare Notion and Obsidian core features and pricing in 2026
 
-调用参数:
+Invocation params:
 
 ```json
 {
@@ -12,8 +12,8 @@
 }
 ```
 
-预期输出结构:
-- `results[0].data.results[]` — 搜索命中，每项含 `url`、`title`、`snippet`
-- `results[1].data` — 批量抓取结果数组，每项含 `url`、`markdown`
-- `results[2].data` — 去重结果，含 `deduped_text`、`removed_count`、`kept_indices`
-- `results[3].data` — 最终压缩，含 `compressed`、`ratio`、`original_tokens`、`compressed_tokens`
+Expected output shape:
+- `results[0].data.results[]` — search hits with `url`, `title`, `snippet`
+- `results[1].data` — batch fetch array; each item has `url`, `markdown`
+- `results[2].data` — dedup output with `deduped_text`, `removed_count`, `kept_indices`
+- `results[3].data` — final compression with `compressed`, `ratio`, `original_tokens`, `compressed_tokens`

@@ -1,11 +1,11 @@
 name: <workflow-name>
 template: custom
-description: <一句话描述此 workflow 解决的场景>
+description: <One sentence describing the user scenario this workflow solves>
 params:
   query:
     type: string
     required: true
-    description: 用户查询或主题
+    description: User query or topic
 steps:
   - tool: smart_search
     params:

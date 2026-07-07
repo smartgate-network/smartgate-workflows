@@ -5,16 +5,16 @@ params:
   url:
     type: string
     required: true
-    description: 要精读的 http(s) URL
+    description: http(s) URL to deep-read
   ratio:
     type: number
     required: false
     default: 0.4
-    description: context_gate 压缩比
+    description: context_gate compression ratio
   goal:
     type: string
     required: false
-    description: 压缩前的相关性预筛目标（可选）
+    description: Optional relevance pre-filter goal before compression
 steps:
   - tool: smart_fetch
     params:

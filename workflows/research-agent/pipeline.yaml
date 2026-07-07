@@ -5,26 +5,26 @@ params:
   query:
     type: string
     required: true
-    description: 调研主题或问题
+    description: Research topic or question
   max_results:
     type: integer
     required: false
     default: 5
-    description: 搜索返回的最大结果数
+    description: Maximum number of search results to return
   dedup_threshold:
     type: number
     required: false
     default: 0.85
-    description: SemHash 去重相似度阈值
+    description: SemHash deduplication similarity threshold
   ratio:
     type: number
     required: false
     default: 0.4
-    description: context_gate 压缩比
+    description: context_gate compression ratio
   goal:
     type: string
     required: false
-    description: context_gate 相关性预筛目标（可选）
+    description: Optional context_gate relevance pre-filter goal
 steps:
   - tool: smart_search
     params:

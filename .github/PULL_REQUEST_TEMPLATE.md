@@ -1,14 +1,14 @@
 ## Summary
 
-<!-- 简要描述新增的 workflow 或修改 -->
+<!-- Brief description of the new workflow or change -->
 
 ## Checklist
 
-- [ ] 已更新 [ROUTING.md](../ROUTING.md)
-- [ ] 已提供至少一个 `examples/*.md`
-- [ ] `pipeline.yaml` 通过本地 schema 校验（`python tests/validate.py`）
-- [ ] 未引入 7 个 primitive 之外的新 tool
+- [ ] Updated [ROUTING.md](../ROUTING.md)
+- [ ] Provided at least one `examples/*.md`
+- [ ] `pipeline.yaml` passes local schema validation (`python tests/validate.py`)
+- [ ] Did not introduce tools outside the 7 primitives
 
-## 边界说明
+## Boundary notes
 
-<!-- 新 workflow 与现有 workflow 的 When NOT to use 边界 -->
+<!-- How this workflow’s When NOT to use differs from adjacent workflows -->

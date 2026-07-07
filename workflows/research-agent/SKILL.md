@@ -1,18 +1,18 @@
 ## research-agent
 
-Purpose: 在没有明确 URL 时，从多个网页来源收集、去重并压缩材料，产出可供 Host LLM 直接分析的结构化调研摘要。
+Purpose: When no definitive URL exists, collect material from multiple web sources, deduplicate and compress it, and return structured research ready for Host LLM analysis.
 
 When to use:
-- 竞品分析：对比多个产品的功能、定价、市场定位
-- 行业研究：汇总某领域近期新闻、报告、趋势
-- 学术/技术调研：收集某主题的论文摘要、技术博客、方案对比
-- 新闻汇总：围绕事件或关键词聚合多方报道
+- Competitor analysis: compare features, pricing, and positioning across products
+- Industry research: aggregate recent news, reports, and trends in a domain
+- Academic/technical surveys: gather paper abstracts, technical blogs, and solution comparisons on a topic
+- News digests: aggregate coverage around an event or keyword from multiple outlets
 
 When NOT to use:
-- 用户已提供确定的 http(s) URL — 使用 **deep-reading** 单链精读，避免多余搜索开销
-- 只需存取团队已有结论 — 使用 **remember-and-recall**
-- 查询 token 额度或用量 — 使用 **usage-report**
+- User already provided a definitive http(s) URL — use **deep-reading** for a single-chain read without extra search
+- Only need to store or retrieve team conclusions — use **remember-and-recall**
+- Querying token quota or usage — use **usage-report**
 
-Returns: JSON 字符串（由 loader 解析）。顶层含 `success`、`results`（逐步结果数组）。最终步 `smart_context_gate` 的 `data` 含 `compressed`（压缩正文）、`ratio`（压缩比）、`original_tokens` / `compressed_tokens`。前序步含 `results[].url`、`results[].snippet`（搜索）、抓取页的 `markdown`、去重后的 `deduped_text` / `removed_count`。
+Returns: JSON string (parse via loader). Top level includes `success` and `results` (per-step array). Final `smart_context_gate` step `data` includes `compressed`, `ratio`, `original_tokens`, `compressed_tokens`. Earlier steps include search `results[].url` / `results[].snippet`, fetched page `markdown`, and dedup `deduped_text` / `removed_count`.
 
-Composes with: Host LLM 做综合分析、写报告；结论可经 **remember-and-recall**（action=add）持久化；大任务前可先 **usage-report**（action=check）预检额度。
+Composes with: Host LLM for synthesis and reports; conclusions via **remember-and-recall** (action=add); pre-flight **usage-report** (action=check) before large jobs.
