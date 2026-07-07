@@ -21,3 +21,11 @@ jobs:
 
       - name: Validate pipelines and skills
         run: python tests/validate.py
+
+      - name: Test install-skills generator
+        run: python -m unittest tests.test_install_skills -v
+
+      - name: Dry-run client installs
+        run: |
+          python scripts/install-skills.py --client cursor --target /tmp/sg-skills --dry-run
+          python scripts/install-skills.py --client claude-code --target /tmp/sg-skills --dry-run

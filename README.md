@@ -13,6 +13,18 @@ A **scenario-oriented workflow collection** for the SmartGate ecosystem — decl
 | [remember-and-recall](workflows/remember-and-recall/) | Team long-term memory (add / search / get / delete) |
 | [usage-report](workflows/usage-report/) | Query team token allowance and usage (administrative; no content production) |
 
+## Getting started
+
+1. Configure [smartgate-mcp](https://github.com/smartgate-network/smartgate-mcp) in your host.
+2. Install skills for your client — see [clients/README.md](clients/README.md).
+
+Quick install (Cursor, project-level):
+
+```bash
+pip install pyyaml
+python scripts/install-skills.py --client cursor --target ../.cursor/skills --force
+```
+
 ## This is not runtime code
 
 This repository contains workflow **declarations** only (`SKILL.md` + `pipeline.yaml`). Execution requires:
@@ -34,6 +46,8 @@ See each workflow’s `pipeline.yaml` for details.
 ```
 smartgate-workflows/
 ├── workflows/          # Scenario workflows
+├── clients/            # Host adapters (Cursor, Claude Code)
+├── scripts/            # install-skills.py
 ├── schema/             # JSON Schema for pipeline.yaml / SKILL.md
 ├── _template/          # New workflow templates
 ├── tests/fixtures/     # Primitive response shape examples

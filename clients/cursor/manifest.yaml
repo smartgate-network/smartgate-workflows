@@ -1,0 +1,29 @@
+client: cursor
+skill_prefix: smartgate-
+default_target: .cursor/skills
+workflows:
+  - id: research-agent
+    description: >
+      Multi-source web research when no definitive URL exists via SmartGate MCP.
+      Use for competitor analysis, industry trends, surveys, or news digests.
+  - id: deep-reading
+    description: >
+      Deep-read and compress a single known http(s) URL via SmartGate MCP.
+      Use when the user provides a link or asks to summarize docs, RFCs, or articles.
+  - id: remember-and-recall
+    description: >
+      Team-scoped long-term memory via SmartGate MCP (add, search, get, delete).
+      Use when the user says remember, recall, or team memory.
+  - id: usage-report
+    description: >
+      Query team token allowance and usage via SmartGate MCP.
+      Use for quota, budget, or usage questions — not content production.
+routing_skill:
+  enabled: true
+  skill_name: smartgate-workflows
+  source: ROUTING.md
+  description: >
+    Routes SmartGate workflow intents to the correct scenario skill.
+    Use for web research, deep-read URL, team memory, or token quota routing.
+execute:
+  shared_file: clients/shared/execute.md

@@ -1,6 +1,6 @@
 # Contributing to smartgate-workflows
 
-Thanks for contributing! This is a content-only project (YAML + Markdown). **No application code changes are required.**
+Thanks for contributing! This is primarily a content project (YAML + Markdown). Workflow semantics live under `workflows/`; host install adapters live under `clients/` and `scripts/install-skills.py`.
 
 **All contributed content must be in English** (SKILL.md, pipeline.yaml descriptions, examples, and ROUTING entries).
 
@@ -41,3 +41,10 @@ python tests/validate.py
 ```
 
 Same script as GitHub Actions.
+
+## Client adapters
+
+- **Workflow semantics** — edit only `workflows/<name>/SKILL.md` and `pipeline.yaml`.
+- **Host install metadata** — edit `clients/<host>/manifest.yaml` and `clients/shared/execute.md`.
+- **Do not** duplicate full SKILL.md files under `clients/`; run `scripts/install-skills.py` to generate host skills.
+- Adding a workflow: also add an entry to each `clients/*/manifest.yaml` and a `## <name>` section in `clients/shared/execute.md`.
