@@ -1,0 +1,15 @@
+name: usage-report
+template: custom
+description: Query team token allowance and usage — administrative only, no content production.
+params:
+  action:
+    type: string
+    required: true
+    enum:
+      - check
+      - count
+    description: check=额度是否允许继续；count=查询已用量
+steps:
+  - tool: smart_budget_guard
+    params:
+      action: "{{action}}"

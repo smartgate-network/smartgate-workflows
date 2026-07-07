@@ -1,0 +1,32 @@
+name: remember-and-recall
+template: custom
+description: Team long-term memory — add, search, get, or delete persisted facts across sessions.
+params:
+  action:
+    type: string
+    required: true
+    enum:
+      - add
+      - search
+      - get
+      - delete
+    description: smart_memory 操作类型
+  content:
+    type: string
+    required: false
+    description: action=add 时必填，要存储的文本
+  query:
+    type: string
+    required: false
+    description: action=search 时必填，检索关键词
+  memory_id:
+    type: string
+    required: false
+    description: action=get 或 delete 时必填
+steps:
+  - tool: smart_memory
+    params:
+      action: "{{action}}"
+      content: "{{content}}"
+      query: "{{query}}"
+      memory_id: "{{memory_id}}"

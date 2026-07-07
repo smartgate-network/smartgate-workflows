@@ -1,0 +1,71 @@
+{
+  "smart_fetch": {
+    "success": true,
+    "data": {
+      "url": "<placeholder>",
+      "title": "<placeholder>",
+      "markdown": "<placeholder>"
+    }
+  },
+  "smart_search": {
+    "success": true,
+    "data": {
+      "query": "<placeholder>",
+      "results": [
+        {
+          "url": "<placeholder>",
+          "title": "<placeholder>",
+          "snippet": "<placeholder>"
+        }
+      ]
+    }
+  },
+  "smart_context_gate": {
+    "success": true,
+    "data": {
+      "compressed": "<placeholder>",
+      "ratio": 0.4,
+      "original_tokens": 0,
+      "compressed_tokens": 0
+    }
+  },
+  "smart_dedup": {
+    "success": true,
+    "data": {
+      "deduped_text": "<placeholder>",
+      "removed_count": 0,
+      "kept_indices": [0]
+    }
+  },
+  "smart_budget_guard": {
+    "success": true,
+    "data": {
+      "allowed": true,
+      "remaining": 0,
+      "limit": 0,
+      "used": 0
+    }
+  },
+  "smart_memory": {
+    "success": true,
+    "data": {
+      "memory_id": "<placeholder>",
+      "memories": [
+        {
+          "id": "<placeholder>",
+          "content": "<placeholder>",
+          "score": 0.0,
+          "created_at": "<placeholder>"
+        }
+      ]
+    }
+  },
+  "smart_pipe": {
+    "success": true,
+    "data": {
+      "pipeline_template": "<placeholder>",
+      "results": [],
+      "pipeline_steps": []
+    }
+  }
+}

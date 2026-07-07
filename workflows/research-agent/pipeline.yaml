@@ -1,0 +1,45 @@
+name: research-agent
+template: custom
+description: Multi-source research when no definitive URL is available — search, batch fetch, dedup, compress.
+params:
+  query:
+    type: string
+    required: true
+    description: 调研主题或问题
+  max_results:
+    type: integer
+    required: false
+    default: 5
+    description: 搜索返回的最大结果数
+  dedup_threshold:
+    type: number
+    required: false
+    default: 0.85
+    description: SemHash 去重相似度阈值
+  ratio:
+    type: number
+    required: false
+    default: 0.4
+    description: context_gate 压缩比
+  goal:
+    type: string
+    required: false
+    description: context_gate 相关性预筛目标（可选）
+steps:
+  - tool: smart_search
+    params:
+      query: "{{query}}"
+      max_results: "{{max_results}}"
+  - tool: smart_fetch
+    params:
+      url: "{{item.url}}"
+    for_each: "{{steps.0.results}}"
+  - tool: smart_dedup
+    params:
+      texts: "{{steps.1.results}}"
+      threshold: "{{dedup_threshold}}"
+  - tool: smart_context_gate
+    params:
+      text: "{{steps.2.deduped_text}}"
+      ratio: "{{ratio}}"
+      goal: "{{goal}}"

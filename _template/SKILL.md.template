@@ -1,0 +1,15 @@
+## <workflow-name>
+
+Purpose: <一到两句话：解决什么问题，产出什么>
+
+When to use:
+- <具体场景 1>
+- <具体场景 2>
+- <具体场景 3>
+
+When NOT to use:
+- <排除场景，并指向应使用的 workflow，如 deep-reading>
+
+Returns: <返回 JSON 的关键字段结构说明>
+
+Composes with: <输出通常接到哪里：host LLM / smart_memory / 其他 workflow>

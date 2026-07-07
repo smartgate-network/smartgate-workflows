@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://smartgate.network/schemas/pipeline.schema.json",
+  "title": "SmartGate Workflow Pipeline",
+  "type": "object",
+  "required": ["name", "template", "description", "params", "steps"],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "template": {
+      "type": "string",
+      "enum": ["research", "read", "remember", "custom"]
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10
+    },
+    "params": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["type", "required", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["string", "integer", "number", "boolean"]
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "default": {},
+          "enum": {
+            "type": "array",
+            "minItems": 1
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["tool", "params"],
+        "additionalProperties": false,
+        "properties": {
+          "tool": {
+            "type": "string",
+            "enum": [
+              "smart_fetch",
+              "smart_search",
+              "smart_context_gate",
+              "smart_dedup",
+              "smart_budget_guard",
+              "smart_memory",
+              "smart_pipe"
+            ]
+          },
+          "params": {
+            "type": "object"
+          },
+          "for_each": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
