@@ -2,6 +2,8 @@
 
 A **scenario-oriented workflow collection** for the SmartGate ecosystem — declarative YAML + Markdown that describes real user scenarios (e.g. “research a competitor”), open for community contributions.
 
+**SmartGate Pro:** [smartgate.network](http://smartgate.network/) · [Documentation](http://smartgate.network/docs)
+
 ## Workflows
 
 | Workflow | Description |
