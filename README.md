@@ -1,12 +1,33 @@
 # SmartGate
 
-<img src="assets/logo.png" width="64" height="64" alt="SmartGate logo">
+<a href="https://smartgate.network">
+  <img src="https://smartgate.network/og.svg" alt="SmartGate — the intelligence layer between AI and the world" width="640">
+</a>
 
-Official [Cursor](https://cursor.com) plugin for [smartgate.network](https://smartgate.network).
+Official [Cursor](https://cursor.com) plugin for **[SmartGate](https://smartgate.network)** — the intelligence layer between AI and the world.
 
-SmartGate is a hosted MCP gateway between the agent and the open web: search, fetch pages as Markdown, compress context, semantically deduplicate, hard-cap token budgets, persist team memory, and run multi-step research / read / remember pipelines. It is **not** an LLM proxy — Cursor stays the host model.
+Marketplace icon stays the 1:1 shield at [`assets/logo.png`](assets/logo.png) (Cursor requires a square plate). The banner above is the site OG card, not the plugin mark.
 
-[Docs](https://smartgate.network/docs) · [Connect](https://smartgate.network/docs/connect) · [Tools](https://smartgate.network/docs/tools) · [Pricing](https://smartgate.network/pricing)
+## What is SmartGate MCP
+
+[SmartGate](https://smartgate.network) is an **MCP-native algorithmic gateway**, not a chatbot, search app, or model router. You keep Cursor (or Claude, Windsurf, OpenClaw) as the host model. SmartGate sits between the agent and the open web so the agent can research, understand, remember, and act without dumping raw pages into a billed context window.
+
+On the surface: [Smart Research](https://smartgate.network/solutions), decisions, knowledge, and monitoring. Under the hood: five intelligence capabilities powered by seven `smart_*` primitives — not seven products.
+
+| Capability | Primitives | Product surface |
+|------------|------------|-----------------|
+| Research | `smart_search` + `smart_fetch` | [Traffic Customs](https://smartgate.network/features/traffic-customs) |
+| Context | `smart_dedup` + `smart_context_gate` | [Token Control](https://smartgate.network/features/token-control) |
+| Memory | `smart_memory` | [Features](https://smartgate.network/features) |
+| Control | `smart_budget_guard` | [Token Control](https://smartgate.network/features/token-control) |
+| Pipeline | `smart_pipe` | [Docs → Tools](https://smartgate.network/docs/tools) |
+
+Developer promise: **don't rebuild research infrastructure for every agent.** One Streamable HTTP origin, Bearer auth, team-scoped audit.
+
+- Product: [smartgate.network](https://smartgate.network) · [Features](https://smartgate.network/features) · [Pricing](https://smartgate.network/pricing)
+- Connect: [Quick start](https://smartgate.network/docs/installation) · [Connect guide](https://smartgate.network/docs/connect) · [MCP endpoint](https://smartgate.network/docs/mcp-endpoint)
+- Reference: [Tools](https://smartgate.network/docs/tools) · [Security](https://smartgate.network/docs/security) · [llms.txt](https://smartgate.network/llms.txt)
+- Compliance: [Audit](https://smartgate.network/features/audit-compliance) · [Privacy](https://smartgate.network/privacy) · [Terms](https://smartgate.network/terms)
 
 ## Install
 
@@ -25,7 +46,7 @@ Check my SmartGate token allowance, then research RAG evaluation methods. Do not
 ```
 
 ```text
-Read https://smartgate.network/docs/tools and summarize the seven tools.
+Read https://smartgate.network/docs/tools and summarize Token Control, Traffic Customs, and Audit.
 ```
 
 ```text
