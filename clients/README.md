@@ -15,6 +15,8 @@ Global install: `--target ~/.cursor/skills`. Marketplace pack: `--target skills`
 
 ## Claude Code
 
+Prefer the Anthropic directory plugin (`.claude-plugin/` + `.mcp.json`) over copying skills by hand.
+
 ```bash
 pip install pyyaml
 python scripts/install-skills.py --client claude-code --target ~/.claude/skills --force

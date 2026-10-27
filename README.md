@@ -6,11 +6,11 @@
 
 **AI Intelligence Layer — not another assistant or LLM proxy.**
 
-Official [Cursor](https://cursor.com) plugin for **[SmartGate](https://smartgate.network)**.
+Official **[SmartGate](https://smartgate.network)** plugin for [Cursor](https://cursor.com), [Claude Code](https://code.claude.com), [claude.ai](https://claude.ai), and Cowork.
 
 [SmartGate](https://smartgate.network) is the intelligence layer between AI and the world — helping you research, understand, remember, and act before runaway tool traffic becomes a surprise invoice.
 
-On the surface: [Smart Research](https://smartgate.network/solutions), decisions, knowledge, and monitoring — no MCP required. Under the hood: an MCP-native algorithmic gateway with five capabilities (Research, Context, Memory, Control, Pipeline) powered by seven `smart_*` primitives. Human interface (Web) + agent interface (MCP/API). Not a chatbot, search app, or model router. Cursor stays the host model.
+On the surface: [Smart Research](https://smartgate.network/solutions), decisions, knowledge, and monitoring — no MCP required. Under the hood: an MCP-native algorithmic gateway with five capabilities (Research, Context, Memory, Control, Pipeline) powered by seven `smart_*` primitives. Human interface (Web) + agent interface (MCP/API). Not a chatbot, search app, or model router. The host model stays on the client.
 
 Plugin mark for Cursor Marketplace is the 1:1 shield [`assets/logo.png`](assets/logo.png). The banner is the official site OG card.
 
@@ -33,11 +33,19 @@ Don't rebuild research infrastructure for every agent. Connect once over Streama
 
 ## Install
 
+Mint a key at [Dashboard → API Keys](https://smartgate.network) (`sk_live_…`). Never paste the key into chat or commit it.
+
+### Cursor
+
 1. Install **SmartGate** from the [Cursor Marketplace](https://cursor.com/marketplace), or import this repo under **Cursor Dashboard → Plugins → Team Marketplaces → Import from Repo**: `https://github.com/smartgate-network/smartgate-workflows`
 2. Open **Plugins → SmartGate → Configure** and set `SMARTGATE_API_KEY`
 3. Restart Cursor (or reload the window) so the MCP handshake runs again
 
-Mint a key at [Dashboard → API Keys](https://smartgate.network) (`sk_live_…`). Never paste the key into chat or commit it.
+### Claude (claude.ai / Cowork / Claude Code)
+
+1. Add **SmartGate** from [Anthropic's directory](https://claude.ai/directory/manage) after it is listed, or load this repo locally: `claude --plugin-dir .`
+2. When Claude prompts for plugin configuration, set `SMARTGATE_API_KEY`. In Claude Code you can also run `/plugin configure @smartgate`
+3. Confirm the connector: on claude.ai / Cowork use the plugin's **Connectors** tab; in Claude Code run `/mcp` and look for `plugin:smartgate:smartgate`
 
 ## First run
 
@@ -83,7 +91,9 @@ Skills shipped with this plugin:
 
 ## Configure
 
-**Marketplace install:** Plugins → SmartGate → Configure → `SMARTGATE_API_KEY`. The plugin `mcp.json` already uses `${SMARTGATE_API_KEY}`. Do not commit a real key.
+**Cursor Marketplace:** Plugins → SmartGate → Configure → `SMARTGATE_API_KEY`. Cursor reads `mcp.json` (`${SMARTGATE_API_KEY}`).
+
+**Claude directory / Claude Code:** `/plugin configure @smartgate` → `SMARTGATE_API_KEY`. Claude reads `.mcp.json` (`${user_config.SMARTGATE_API_KEY}`). Do not commit a real key.
 
 **Manual / reviewer fallback** (only if you are not using the plugin): merge this into `~/.cursor/mcp.json` (user) or `<project>/.cursor/mcp.json` (project), then restart Cursor. Replace the placeholder. If the plugin is also installed, delete this block so tools are not duplicated.
 
@@ -102,13 +112,30 @@ Skills shipped with this plugin:
 }
 ```
 
-Hosted endpoint: `POST https://smartgate.network/api/mcp` (Streamable HTTP). Mint a key at [Dashboard → API Keys](https://smartgate.network).
+Claude Code / claude.ai fallback (only if the plugin is not installed). Same endpoint, Claude's `http` type, and `${user_config.SMARTGATE_API_KEY}` in the plugin copy of `.mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "smartgate": {
+      "type": "http",
+      "url": "https://smartgate.network/api/mcp",
+      "headers": {
+        "Authorization": "Bearer sk_live_REPLACE_WITH_YOUR_KEY",
+        "X-SmartGate-Agent-Platform": "claude"
+      }
+    }
+  }
+}
+```
+
+Hosted endpoint: `POST https://smartgate.network/api/mcp` (Streamable HTTP). Mint a key at [Dashboard → API Keys](https://smartgate.network). If you also add the standalone SmartGate MCP connector from the directory, use the same URL so tools are not duplicated.
 
 ## Data handling
 
-This plugin does not run fetch, search, compression, or memory inside Cursor. Those steps run on the **hosted** gateway at `https://smartgate.network/api/mcp`. Cursor stays the host model.
+This plugin does not run fetch, search, compression, or memory inside Cursor or Claude. Those steps run on the **hosted** gateway at `https://smartgate.network/api/mcp`. The host model (Cursor or Claude) stays on the client.
 
-- **In transit:** HTTPS + `Authorization: Bearer`. The plugin ships no secrets; you set `SMARTGATE_API_KEY` in Plugins → Configure.
+- **In transit:** HTTPS + `Authorization: Bearer`. The plugin ships no secrets. You set `SMARTGATE_API_KEY` in the host's plugin configure dialog (Cursor variables, or Claude `userConfig`).
 - **At rest:** we store a **hash** of API keys, not the raw secret. Teams are isolated by the key's tenant. Do not pass a foreign `team_id`.
 - **What is logged:** tool name, timestamp, token counts, and for fetch the **requested URL**. Retention: Free 7 days · Pro 30 · Teams 90 · Enterprise 180. See [Security](https://smartgate.network/docs/security) and [Logs](https://smartgate.network/docs/logs).
 - **Compression / dedup:** `smart_context_gate` (LLMLingua) and `smart_dedup` (SemHash) run on SmartGate servers, not locally. They shrink or drop overlapping text; they are **not** a PII redaction product. Do not put secrets or credentials in tool arguments or memory.
@@ -120,14 +147,14 @@ This plugin does not run fetch, search, compression, or memory inside Cursor. Th
 
 | Symptom | Check |
 |---------|--------|
-| 401 Unauthorized | `SMARTGATE_API_KEY` is set in Plugins → Configure; key is `sk_live_…` |
-| Tools empty | Restart Cursor so `initialize` / `tools/list` run |
+| 401 Unauthorized | `SMARTGATE_API_KEY` is set in the host's plugin configure dialog; key is `sk_live_…` |
+| Tools empty | Restart Cursor, or in Claude Code run `/mcp` and reconnect `plugin:smartgate:smartgate` |
 | 405 on GET | Endpoint is **POST** `/api/mcp`, not GET SSE |
-| Duplicate tools | Remove a hand-written `smartgate` block from `~/.cursor/mcp.json` |
+| Duplicate tools | Remove a hand-written `smartgate` block from `~/.cursor/mcp.json` or `~/.claude.json` |
 
 ## Workflow source
 
-`workflows/` is the scenario source (YAML + Markdown). `skills/` is the committed Cursor pack, generated by:
+`workflows/` is the scenario source (YAML + Markdown). `skills/` is the committed plugin pack, generated by:
 
 ```bash
 pip install jsonschema pyyaml

@@ -198,11 +198,57 @@ def validate_cursor_plugin(errors: list[str]) -> None:
             errors.append(f"{rel}: missing YAML frontmatter name (Cursor reviews every SKILL.md)")
 
 
+def validate_claude_plugin(errors: list[str]) -> None:
+    # ponytail: directory-shape checks only; claude plugin validate is the schema authority
+    plugin_path = ROOT / ".claude-plugin" / "plugin.json"
+    mcp_path = ROOT / ".mcp.json"
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+
+    if not plugin_path.is_file():
+        errors.append(".claude-plugin/plugin.json: missing")
+        return
+    plugin = load_json(plugin_path)
+    if plugin.get("name") != "smartgate":
+        errors.append(f".claude-plugin/plugin.json: name must be 'smartgate', got {plugin.get('name')!r}")
+    if plugin.get("license") != "MIT":
+        errors.append(".claude-plugin/plugin.json: license must be MIT")
+    if not plugin.get("displayName") or not plugin.get("version") or not plugin.get("description"):
+        errors.append(".claude-plugin/plugin.json: displayName, version, and description are required")
+    if not (plugin.get("author") or {}).get("name"):
+        errors.append(".claude-plugin/plugin.json: author.name is required")
+    key = ((plugin.get("userConfig") or {}).get("SMARTGATE_API_KEY") or {})
+    if key.get("type") != "string" or not key.get("sensitive") or not key.get("required"):
+        errors.append(".claude-plugin/plugin.json: userConfig.SMARTGATE_API_KEY must be required sensitive string")
+    icon = plugin.get("icon") or ""
+    if icon != "./assets/logo.png":
+        errors.append(f".claude-plugin/plugin.json: icon must be ./assets/logo.png, got {icon!r}")
+    if "${user_config.SMARTGATE_API_KEY}" not in readme:
+        errors.append("README.md: must document Claude ${user_config.SMARTGATE_API_KEY}")
+    if "claude.ai" not in readme:
+        errors.append("README.md: must mention claude.ai")
+
+    if not mcp_path.is_file():
+        errors.append(".mcp.json: missing")
+        return
+    mcp = load_json(mcp_path)
+    server = (mcp.get("mcpServers") or {}).get("smartgate") or {}
+    if server.get("url") != "https://smartgate.network/api/mcp":
+        errors.append(".mcp.json: smartgate url must be https://smartgate.network/api/mcp")
+    if server.get("type") != "http":
+        errors.append(".mcp.json: smartgate type must be http")
+    auth = (server.get("headers") or {}).get("Authorization", "")
+    if "${user_config.SMARTGATE_API_KEY}" not in auth:
+        errors.append(".mcp.json: Authorization must use ${user_config.SMARTGATE_API_KEY}")
+    if "${SMARTGATE_API_KEY}" in json.dumps(mcp) and "${user_config.SMARTGATE_API_KEY}" not in auth:
+        errors.append(".mcp.json: do not read SMARTGATE_API_KEY from the user environment")
+
+
 def main() -> int:
     errors: list[str] = []
     validate_pipelines(errors)
     validate_skills(errors)
     validate_cursor_plugin(errors)
+    validate_claude_plugin(errors)
 
     if errors:
         print("Validation failed:", file=sys.stderr)
