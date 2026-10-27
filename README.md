@@ -1,31 +1,33 @@
 # SmartGate
 
 <a href="https://smartgate.network">
-  <img src="https://smartgate.network/og.svg" alt="SmartGate — the intelligence layer between AI and the world" width="640">
+  <img src="https://smartgate.network/og.jpg" width="640" alt="SmartGate — the intelligence layer between AI and the world">
 </a>
 
-Official [Cursor](https://cursor.com) plugin for **[SmartGate](https://smartgate.network)** — the intelligence layer between AI and the world.
+**AI Intelligence Layer — not another assistant or LLM proxy.**
 
-Marketplace icon stays the 1:1 shield at [`assets/logo.png`](assets/logo.png) (Cursor requires a square plate). The banner above is the site OG card, not the plugin mark.
+Official [Cursor](https://cursor.com) plugin for **[SmartGate](https://smartgate.network)**.
+
+[SmartGate](https://smartgate.network) is the intelligence layer between AI and the world — helping you research, understand, remember, and act before runaway tool traffic becomes a surprise invoice.
+
+On the surface: [Smart Research](https://smartgate.network/solutions), decisions, knowledge, and monitoring — no MCP required. Under the hood: an MCP-native algorithmic gateway with five capabilities (Research, Context, Memory, Control, Pipeline) powered by seven `smart_*` primitives. Human interface (Web) + agent interface (MCP/API). Not a chatbot, search app, or model router. Cursor stays the host model.
+
+Plugin mark for Cursor Marketplace is the 1:1 shield [`assets/logo.png`](assets/logo.png). The banner is the official site OG card.
 
 ## What is SmartGate MCP
 
-[SmartGate](https://smartgate.network) is an **MCP-native algorithmic gateway**, not a chatbot, search app, or model router. You keep Cursor (or Claude, Windsurf, OpenClaw) as the host model. SmartGate sits between the agent and the open web so the agent can research, understand, remember, and act without dumping raw pages into a billed context window.
+Don't rebuild research infrastructure for every agent. Connect once over Streamable HTTP; the gateway fetches, searches, compresses, deduplicates, remembers, and hard-caps tool traffic before it reaches your model provider.
 
-On the surface: [Smart Research](https://smartgate.network/solutions), decisions, knowledge, and monitoring. Under the hood: five intelligence capabilities powered by seven `smart_*` primitives — not seven products.
-
-| Capability | Primitives | Product surface |
-|------------|------------|-----------------|
-| Research | `smart_search` + `smart_fetch` | [Traffic Customs](https://smartgate.network/features/traffic-customs) |
-| Context | `smart_dedup` + `smart_context_gate` | [Token Control](https://smartgate.network/features/token-control) |
-| Memory | `smart_memory` | [Features](https://smartgate.network/features) |
-| Control | `smart_budget_guard` | [Token Control](https://smartgate.network/features/token-control) |
-| Pipeline | `smart_pipe` | [Docs → Tools](https://smartgate.network/docs/tools) |
-
-Developer promise: **don't rebuild research infrastructure for every agent.** One Streamable HTTP origin, Bearer auth, team-scoped audit.
+| Capability | What the agent does | Product |
+|------------|---------------------|---------|
+| Research | Find sources, then read pages as Markdown | [Traffic Customs](https://smartgate.network/features/traffic-customs) |
+| Context | Dedup overlapping hits, then compress | [Token Control](https://smartgate.network/features/token-control) |
+| Memory | Persist and recall team facts across sessions | [Features](https://smartgate.network/features) |
+| Control | Check, count, and cap token budget | [Token Control](https://smartgate.network/features/token-control) |
+| Pipeline | Run research / read / remember as one job | [Tools](https://smartgate.network/docs/tools) |
 
 - Product: [smartgate.network](https://smartgate.network) · [Features](https://smartgate.network/features) · [Pricing](https://smartgate.network/pricing)
-- Connect: [Quick start](https://smartgate.network/docs/installation) · [Connect guide](https://smartgate.network/docs/connect) · [MCP endpoint](https://smartgate.network/docs/mcp-endpoint)
+- Connect: [Quick start](https://smartgate.network/docs/installation) · [Connect](https://smartgate.network/docs/connect) · [MCP endpoint](https://smartgate.network/docs/mcp-endpoint)
 - Reference: [Tools](https://smartgate.network/docs/tools) · [Security](https://smartgate.network/docs/security) · [llms.txt](https://smartgate.network/llms.txt)
 - Compliance: [Audit](https://smartgate.network/features/audit-compliance) · [Privacy](https://smartgate.network/privacy) · [Terms](https://smartgate.network/terms)
 

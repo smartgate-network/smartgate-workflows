@@ -135,8 +135,8 @@ def validate_cursor_plugin(errors: list[str]) -> None:
         errors.append("README.md: must document SMARTGATE_API_KEY")
     if "github.com/smartgate-network/smartgate-mcp" in readme:
         errors.append("README.md: do not link the 404 smartgate-mcp repo")
-    if "https://smartgate.network/og.svg" not in readme:
-        errors.append("README.md: must hotlink https://smartgate.network/og.svg (do not replace assets/logo.png)")
+    if "https://smartgate.network/og.jpg" not in readme:
+        errors.append("README.md: must hotlink https://smartgate.network/og.jpg (do not replace assets/logo.png)")
 
     if not logo_path.is_file():
         errors.append("assets/logo.png: missing")
