@@ -1,0 +1,22 @@
+{
+  "name": "smartgate",
+  "version": "1.0.0",
+  "description": "Hosted MCP: search, fetch, compress, dedup, budget, memory, pipelines. Not an LLM proxy.",
+  "settings": [
+    {
+      "name": "SmartGate API key",
+      "description": "Bearer key from https://smartgate.network Dashboard → API Keys.",
+      "envVar": "SMARTGATE_API_KEY",
+      "sensitive": true
+    }
+  ],
+  "mcpServers": {
+    "smartgate": {
+      "httpUrl": "https://smartgate.network/api/mcp",
+      "headers": {
+        "Authorization": "Bearer ${SMARTGATE_API_KEY}",
+        "X-SmartGate-Agent-Platform": "gemini"
+      }
+    }
+  }
+}

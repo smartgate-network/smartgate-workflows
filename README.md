@@ -35,6 +35,8 @@ Don't rebuild research infrastructure for every agent. Connect once over Streama
 
 Mint a key at [Dashboard → API Keys](https://smartgate.network) (`sk_live_…`). Never paste the key into chat or commit it.
 
+Official MCP Registry name: [`network.smartgate/smartgate`](https://registry.modelcontextprotocol.io/). Same endpoint: `https://smartgate.network/api/mcp`. The listing is metadata only — you still need the Dashboard Bearer key.
+
 ### Cursor
 
 1. Install **SmartGate** from the [Cursor Marketplace](https://cursor.com/marketplace), or import this repo under **Cursor Dashboard → Plugins → Team Marketplaces → Import from Repo**: `https://github.com/smartgate-network/smartgate-workflows`
@@ -46,6 +48,14 @@ Mint a key at [Dashboard → API Keys](https://smartgate.network) (`sk_live_…`
 1. Add **SmartGate** from [Anthropic's directory](https://claude.ai/directory/manage) after it is listed, or load this repo locally: `claude --plugin-dir .`
 2. When Claude prompts for plugin configuration, set `SMARTGATE_API_KEY`. In Claude Code you can also run `/plugin configure @smartgate`
 3. Confirm the connector: on claude.ai / Cowork use the plugin's **Connectors** tab; in Claude Code run `/mcp` and look for `plugin:smartgate:smartgate`
+
+### Gemini CLI
+
+```bash
+gemini extensions install https://github.com/smartgate-network/smartgate-workflows
+```
+
+Set `SMARTGATE_API_KEY` when the CLI prompts. Manifest: `gemini-extension.json`.
 
 ## First run
 
