@@ -132,6 +132,10 @@ python tests/validate.py
 
 Manual skill install (no Marketplace): see [clients/README.md](clients/README.md).
 
+## Maintainers
+
+[SmartGate](https://smartgate.network) · [support@smartgate.network](mailto:support@smartgate.network)
+
 ## License
 
 [MIT](LICENSE)
