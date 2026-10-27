@@ -13,16 +13,33 @@ A **scenario-oriented workflow collection** for the SmartGate ecosystem — decl
 | [remember-and-recall](workflows/remember-and-recall/) | Team long-term memory (add / search / get / delete) |
 | [usage-report](workflows/usage-report/) | Query team token allowance and usage (administrative; no content production) |
 
+## Cursor Marketplace plugin
+
+This repo is the public Cursor plugin package for [smartgate.network](https://smartgate.network).
+
+- Manifest: `.cursor-plugin/plugin.json`
+- Hosted MCP: `mcp.json` → `https://smartgate.network/api/mcp`
+- Skills: `skills/` (generated from `workflows/` + `clients/cursor/manifest.yaml`)
+- Logo: `assets/logo.png`
+
+Install from Cursor Marketplace, then set `SMARTGATE_API_KEY` (Dashboard → API Keys). SmartGate is not an LLM proxy — Cursor stays the host model.
+
 ## Getting started
 
-1. Configure [smartgate-mcp](https://github.com/smartgate-network/smartgate-mcp) in your host.
+1. Point your host at the hosted MCP (`https://smartgate.network/api/mcp`) with a Bearer API key, or install the Cursor plugin above.
 2. Install skills for your client — see [clients/README.md](clients/README.md).
 
-Quick install (Cursor, project-level):
+Quick install (Cursor, project-level, without Marketplace):
 
 ```bash
 pip install pyyaml
 python scripts/install-skills.py --client cursor --target ../.cursor/skills --force
+```
+
+Regenerate committed Marketplace skills after a workflow change:
+
+```bash
+python scripts/install-skills.py --client cursor --target skills --force
 ```
 
 ## This is not runtime code
@@ -45,6 +62,10 @@ See each workflow’s `pipeline.yaml` for details.
 
 ```
 smartgate-workflows/
+├── .cursor-plugin/     # Cursor Marketplace manifest
+├── mcp.json            # Hosted SmartGate MCP (API key via ${SMARTGATE_API_KEY})
+├── assets/logo.png     # 1:1 marketplace logo
+├── skills/             # Committed Cursor skills (generated)
 ├── workflows/          # Scenario workflows
 ├── clients/            # Host adapters (Cursor, Claude Code)
 ├── scripts/            # install-skills.py

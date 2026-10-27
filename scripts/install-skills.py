@@ -71,7 +71,7 @@ def build_routing_skill(manifest: dict) -> str | None:
     name = routing["skill_name"]
     desc = routing["description"]
     header = (
-        "Prerequisite: `user-smartgate` MCP must be configured.\n\n"
+        "Prerequisite: SmartGate MCP must be configured.\n\n"
         "Invoke the matching workflow skill after routing.\n\n"
     )
     return frontmatter(name, desc) + header + body.rstrip() + "\n"

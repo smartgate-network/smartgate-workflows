@@ -117,10 +117,49 @@ def validate_skills(errors: list[str]) -> None:
             errors.append(f"{rel}: skill schema — {err.message}")
 
 
+def validate_cursor_plugin(errors: list[str]) -> None:
+    # ponytail: one marketplace-shape check; expand if Cursor adds more required fields
+    plugin_path = ROOT / ".cursor-plugin" / "plugin.json"
+    mcp_path = ROOT / "mcp.json"
+    logo_path = ROOT / "assets" / "logo.png"
+
+    if not plugin_path.is_file():
+        errors.append(".cursor-plugin/plugin.json: missing")
+        return
+    plugin = load_json(plugin_path)
+    if plugin.get("name") != "smartgate":
+        errors.append(f".cursor-plugin/plugin.json: name must be 'smartgate', got {plugin.get('name')!r}")
+    if not logo_path.is_file():
+        errors.append("assets/logo.png: missing")
+
+    if not mcp_path.is_file():
+        errors.append("mcp.json: missing")
+        return
+    mcp = load_json(mcp_path)
+    server = (mcp.get("mcpServers") or {}).get("smartgate") or {}
+    if server.get("url") != "https://smartgate.network/api/mcp":
+        errors.append("mcp.json: smartgate url must be https://smartgate.network/api/mcp")
+    auth = (server.get("headers") or {}).get("Authorization", "")
+    if "${SMARTGATE_API_KEY}" not in auth:
+        errors.append("mcp.json: Authorization must use ${SMARTGATE_API_KEY}")
+    props = ((plugin.get("variables") or {}).get("properties") or {})
+    if "SMARTGATE_API_KEY" not in props:
+        errors.append(".cursor-plugin/plugin.json: variables.properties.SMARTGATE_API_KEY missing")
+
+    skill_files = sorted((ROOT / "skills").glob("*/SKILL.md"))
+    if len(skill_files) < 5:
+        errors.append(f"skills/: expected >=5 SKILL.md, got {len(skill_files)}")
+    for path in skill_files:
+        text = path.read_text(encoding="utf-8")
+        if not text.startswith("---") or "name:" not in text.split("---", 2)[1]:
+            errors.append(f"{path.relative_to(ROOT)}: missing YAML frontmatter name")
+
+
 def main() -> int:
     errors: list[str] = []
     validate_pipelines(errors)
     validate_skills(errors)
+    validate_cursor_plugin(errors)
 
     if errors:
         print("Validation failed:", file=sys.stderr)
