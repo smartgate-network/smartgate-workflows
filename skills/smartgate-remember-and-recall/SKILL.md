@@ -24,13 +24,13 @@ Returns: JSON string; shape depends on `action`. `add`: `data.memory_id`, `data.
 
 Composes with: **research-agent** output summarized by Host LLM then action=add; Host LLM grounds on search results; chain with **deep-reading** (read URL, then add summary).
 
-## Execute (user-smartgate MCP)
+## Execute (SmartGate MCP)
 
 Call `smart_memory` with `action`:
 
 | action | required params |
 |--------|-----------------|
-| `add` | `content` |
+| `add` | `text` |
 | `search` | `query` |
 | `get` | `memory_id` |
 | `delete` | `memory_id` |

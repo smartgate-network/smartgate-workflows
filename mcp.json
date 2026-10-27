@@ -1,6 +1,7 @@
 {
   "mcpServers": {
     "smartgate": {
+      "type": "streamable-http",
       "url": "https://smartgate.network/api/mcp",
       "headers": {
         "Authorization": "Bearer ${SMARTGATE_API_KEY}",

@@ -118,10 +118,12 @@ def validate_skills(errors: list[str]) -> None:
 
 
 def validate_cursor_plugin(errors: list[str]) -> None:
-    # ponytail: one marketplace-shape check; expand if Cursor adds more required fields
+    # ponytail: marketplace-shape checks only; expand if Cursor adds more required fields
     plugin_path = ROOT / ".cursor-plugin" / "plugin.json"
+    market_path = ROOT / ".cursor-plugin" / "marketplace.json"
     mcp_path = ROOT / "mcp.json"
     logo_path = ROOT / "assets" / "logo.png"
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
 
     if not plugin_path.is_file():
         errors.append(".cursor-plugin/plugin.json: missing")
@@ -129,8 +131,26 @@ def validate_cursor_plugin(errors: list[str]) -> None:
     plugin = load_json(plugin_path)
     if plugin.get("name") != "smartgate":
         errors.append(f".cursor-plugin/plugin.json: name must be 'smartgate', got {plugin.get('name')!r}")
+    if "SMARTGATE_API_KEY" not in readme:
+        errors.append("README.md: must document SMARTGATE_API_KEY")
+    if "github.com/smartgate-network/smartgate-mcp" in readme:
+        errors.append("README.md: do not link the 404 smartgate-mcp repo")
+
     if not logo_path.is_file():
         errors.append("assets/logo.png: missing")
+    else:
+        data = logo_path.read_bytes()
+        ihdr = data.find(b"IHDR")
+        if ihdr < 0 or data[ihdr + 4 : ihdr + 12] != b"\x00\x00\x02\x00\x00\x00\x02\x00":
+            errors.append("assets/logo.png: must be a 512x512 PNG (1:1 marketplace plate)")
+
+    if not market_path.is_file():
+        errors.append(".cursor-plugin/marketplace.json: missing")
+    else:
+        market = load_json(market_path)
+        plugins = market.get("plugins") or []
+        if not plugins or plugins[0].get("source") != "." or plugins[0].get("name") != "smartgate":
+            errors.append(".cursor-plugin/marketplace.json: expected plugins[0] name=smartgate source=.")
 
     if not mcp_path.is_file():
         errors.append("mcp.json: missing")
@@ -139,6 +159,8 @@ def validate_cursor_plugin(errors: list[str]) -> None:
     server = (mcp.get("mcpServers") or {}).get("smartgate") or {}
     if server.get("url") != "https://smartgate.network/api/mcp":
         errors.append("mcp.json: smartgate url must be https://smartgate.network/api/mcp")
+    if server.get("type") != "streamable-http":
+        errors.append("mcp.json: smartgate type must be streamable-http")
     auth = (server.get("headers") or {}).get("Authorization", "")
     if "${SMARTGATE_API_KEY}" not in auth:
         errors.append("mcp.json: Authorization must use ${SMARTGATE_API_KEY}")
@@ -146,13 +168,22 @@ def validate_cursor_plugin(errors: list[str]) -> None:
     if "SMARTGATE_API_KEY" not in props:
         errors.append(".cursor-plugin/plugin.json: variables.properties.SMARTGATE_API_KEY missing")
 
+    execute = (ROOT / "clients" / "shared" / "execute.md").read_text(encoding="utf-8")
+    if "| `add` | `text` |" not in execute:
+        errors.append("clients/shared/execute.md: smart_memory add must use `text`")
+    if "user-smartgate" in execute:
+        errors.append("clients/shared/execute.md: do not name the host-local user-smartgate server")
+
     skill_files = sorted((ROOT / "skills").glob("*/SKILL.md"))
     if len(skill_files) < 5:
         errors.append(f"skills/: expected >=5 SKILL.md, got {len(skill_files)}")
     for path in skill_files:
         text = path.read_text(encoding="utf-8")
+        rel = path.relative_to(ROOT)
         if not text.startswith("---") or "name:" not in text.split("---", 2)[1]:
-            errors.append(f"{path.relative_to(ROOT)}: missing YAML frontmatter name")
+            errors.append(f"{rel}: missing YAML frontmatter name")
+        if "user-smartgate" in text:
+            errors.append(f"{rel}: do not name the host-local user-smartgate server")
 
 
 def main() -> int:

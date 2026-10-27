@@ -1,6 +1,6 @@
-# MCP execution (user-smartgate)
+# MCP execution (SmartGate)
 
-Prerequisite: `user-smartgate` MCP configured and authenticated. Parse every tool JSON response before synthesizing.
+Prerequisite: SmartGate MCP configured and authenticated. Parse every tool JSON response before synthesizing.
 
 ## deep-reading
 
@@ -29,7 +29,7 @@ Call `smart_memory` with `action`:
 
 | action | required params |
 |--------|-----------------|
-| `add` | `content` |
+| `add` | `text` |
 | `search` | `query` |
 | `get` | `memory_id` |
 | `delete` | `memory_id` |

@@ -23,7 +23,7 @@ Returns: JSON string. `check`: `data.allowed` (boolean), `data.remaining`, `data
 
 Composes with: loader or Host calls check before **research-agent** / **deep-reading**; show count results directly to admins.
 
-## Execute (user-smartgate MCP)
+## Execute (SmartGate MCP)
 
 Call `smart_budget_guard`:
 

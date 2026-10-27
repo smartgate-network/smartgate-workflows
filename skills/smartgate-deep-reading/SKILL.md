@@ -24,7 +24,7 @@ Returns: JSON string. When loader calls `smart_pipe` with `template=read`, top l
 
 Composes with: Host LLM for summaries, Q&A, code examples; output into **remember-and-recall**; **usage-report** (action=check) before very long pages.
 
-## Execute (user-smartgate MCP)
+## Execute (SmartGate MCP)
 
 Call `smart_pipe`:
 

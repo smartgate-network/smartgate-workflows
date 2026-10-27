@@ -24,7 +24,7 @@ Thanks for contributing! This is primarily a content project (YAML + Markdown). 
 - `smart_memory`
 - `smart_pipe`
 
-**New primitives are not accepted in this repo.** Open an issue in [smartgate-sdk](https://github.com/smartgate-network/smartgate-sdk) instead.
+**New primitives are not accepted in this repo.** Open an issue here instead.
 
 ## Pull request requirements
 
@@ -32,6 +32,7 @@ Thanks for contributing! This is primarily a content project (YAML + Markdown). 
 - [ ] At least one `examples/*.md` provided
 - [ ] `pipeline.yaml` passes schema validation (CI runs automatically)
 - [ ] No tools outside the 7 primitives
+- [ ] Regenerated Marketplace skills: `python scripts/install-skills.py --client cursor --target skills --force`
 
 ## Local validation
 

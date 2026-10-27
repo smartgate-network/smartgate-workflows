@@ -24,7 +24,7 @@ Returns: JSON string (parse via loader). Top level includes `success` and `resul
 
 Composes with: Host LLM for synthesis and reports; conclusions via **remember-and-recall** (action=add); pre-flight **usage-report** (action=check) before large jobs.
 
-## Execute (user-smartgate MCP)
+## Execute (SmartGate MCP)
 
 Optional pre-flight: `smart_budget_guard` with `{ "action": "check" }`.
 

@@ -1,8 +1,8 @@
 # Client installation
 
-Install SmartGate workflow skills into your AI coding host. Generated skills are **not** committed to this repo — they are written to your project or home directory.
+The Cursor Marketplace plugin ships committed skills in `/skills`. Use this script only when you want skills in a project or another host **without** installing the plugin.
 
-**Prerequisite:** [smartgate-mcp](https://github.com/smartgate-network/smartgate-mcp) configured in your host.
+**Prerequisite:** SmartGate MCP at `https://smartgate.network/api/mcp` with a Bearer API key ([Connect](https://smartgate.network/docs/connect)).
 
 ## Cursor (project-level)
 
@@ -11,7 +11,7 @@ pip install pyyaml
 python scripts/install-skills.py --client cursor --target ../.cursor/skills --force
 ```
 
-Global install: use `--target ~/.cursor/skills` instead.
+Global install: `--target ~/.cursor/skills`. Marketplace pack: `--target skills`.
 
 ## Claude Code
 
@@ -26,4 +26,4 @@ Not supported in v1. See [codex/README.md](codex/README.md).
 
 ## Updating
 
-After `git pull`, re-run the install command with `--force`.
+After `git pull`, re-run with `--force`. If you change `workflows/` or `clients/shared/execute.md`, regenerate `/skills` and commit it.

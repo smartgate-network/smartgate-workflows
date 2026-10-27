@@ -1,0 +1,17 @@
+{
+  "name": "smartgate",
+  "owner": {
+    "name": "SmartGate",
+    "email": "support@smartgate.network"
+  },
+  "metadata": {
+    "description": "Official SmartGate MCP plugin for Cursor"
+  },
+  "plugins": [
+    {
+      "name": "smartgate",
+      "source": ".",
+      "description": "Official SmartGate MCP plugin: search, fetch, compress, dedup, budget, memory, and multi-step pipelines."
+    }
+  ]
+}

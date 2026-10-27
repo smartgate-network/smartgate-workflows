@@ -58,7 +58,7 @@ def build_workflow_skill(
     parts = [frontmatter(name, description), upstream.rstrip()]
     execute = execute_sections.get(workflow_id)
     if execute:
-        parts.append("\n## Execute (user-smartgate MCP)\n\n" + execute)
+        parts.append("\n## Execute (SmartGate MCP)\n\n" + execute)
     return "\n".join(parts) + "\n"
 
 
