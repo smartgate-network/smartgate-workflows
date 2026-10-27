@@ -1,0 +1,29 @@
+{
+  "name": "smartgate",
+  "displayName": "SmartGate",
+  "version": "1.0.0",
+  "description": "Official SmartGate MCP plugin: search, fetch, compress, dedup, budget, memory, and multi-step pipelines. Not an LLM proxy.",
+  "author": {
+    "name": "SmartGate",
+    "email": "support@smartgate.network",
+    "url": "https://smartgate.network"
+  },
+  "homepage": "https://smartgate.network",
+  "repository": "https://github.com/smartgate-network/smartgate-workflows",
+  "license": "MIT",
+  "keywords": ["search", "fetch", "compression", "memory", "budget", "research"],
+  "icon": "./assets/logo.png",
+  "documentationUrl": "https://smartgate.network/docs/connect",
+  "supportUrl": "https://smartgate.network",
+  "privacyPolicyUrl": "https://smartgate.network/privacy",
+  "termsOfServiceUrl": "https://smartgate.network/terms",
+  "userConfig": {
+    "SMARTGATE_API_KEY": {
+      "type": "string",
+      "title": "SmartGate API key",
+      "description": "Bearer key from https://smartgate.network Dashboard → API Keys. Sent as Authorization: Bearer.",
+      "required": true,
+      "sensitive": true
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "smartgate": {
+      "type": "http",
+      "url": "https://smartgate.network/api/mcp",
+      "headers": {
+        "Authorization": "Bearer ${user_config.SMARTGATE_API_KEY}",
+        "X-SmartGate-Agent-Platform": "claude"
+      }
+    }
+  }
+}
