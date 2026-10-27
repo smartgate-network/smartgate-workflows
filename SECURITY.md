@@ -4,6 +4,11 @@ Report vulnerabilities to [support@smartgate.network](mailto:support@smartgate.n
 
 This plugin does not ship secrets. Users set `SMARTGATE_API_KEY` in Cursor → Plugins → Configure. The value is substituted into `mcp.json` as `Authorization: Bearer ${SMARTGATE_API_KEY}` and sent to `https://smartgate.network/api/mcp`.
 
+## Data handling (short)
+
+Tool execution is **hosted**, not local: fetch, search, LLMLingua compression, SemHash dedup, budget, and team memory run on SmartGate. Cursor remains the host model. We store hashed API keys, team-scoped audit rows (tool name, time, token counts, fetch URLs), and memory payloads you explicitly `add`. Retention follows the plan catalog (7 / 30 / 90 / 180 days). There is no general PII-redaction filter — do not send secrets in tool arguments.
+
 - [Privacy Policy](https://smartgate.network/privacy)
 - [Terms of Service](https://smartgate.network/terms)
+- [Security docs](https://smartgate.network/docs/security)
 - [MCP endpoint](https://smartgate.network/docs/mcp-endpoint)

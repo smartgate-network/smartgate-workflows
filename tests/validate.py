@@ -137,6 +137,10 @@ def validate_cursor_plugin(errors: list[str]) -> None:
         errors.append("README.md: do not link the 404 smartgate-mcp repo")
     if "https://smartgate.network/og.jpg" not in readme:
         errors.append("README.md: must hotlink https://smartgate.network/og.jpg (do not replace assets/logo.png)")
+    if "## Data handling" not in readme:
+        errors.append("README.md: missing Data handling section")
+    if "smart_context_gate" not in readme or "sk_live_REPLACE_WITH_YOUR_KEY" not in readme:
+        errors.append("README.md: must document live tool names and a copy-paste mcp.json placeholder")
 
     if not logo_path.is_file():
         errors.append("assets/logo.png: missing")

@@ -44,28 +44,32 @@ Mint a key at [Dashboard → API Keys](https://smartgate.network) (`sk_live_…`
 After the MCP server shows as connected, try:
 
 ```text
-Check my SmartGate token allowance, then research RAG evaluation methods. Do not invent sources.
+Check my SmartGate token allowance with smart_budget_guard action=check.
 ```
 
 ```text
-Read https://smartgate.network/docs/tools and summarize Token Control, Traffic Customs, and Audit.
+smart_fetch https://smartgate.network/docs/tools then summarize Token Control, Traffic Customs, and Audit.
 ```
 
 ```text
 Remember: our staging API rate limit is 100 req/min
 ```
 
-## What the agent can call
+Live `tools/list` schemas (purpose, params, returns) come from the hosted server, not this repo. Names are `smart_*` — there is no `smartgate_compress_context`. Full reference: [Docs → Tools](https://smartgate.network/docs/tools).
 
-| Tool | When |
-|------|------|
-| `smart_search` | Research with no definitive URL |
-| `smart_fetch` | User gave an http(s) URL — return Markdown |
-| `smart_dedup` | Overlapping passages / search hits |
-| `smart_context_gate` | Shrink long text before the host model |
-| `smart_budget_guard` | `check` / `count` before costly work; `record` after |
-| `smart_memory` | Team memory: `add` (`text`), `search`, `get`, `delete` |
-| `smart_pipe` | Multi-step only (`research` / `read` / `remember`) |
+## Tools (reviewer cheat sheet)
+
+Every tool returns a **JSON string**. Parse it before synthesizing. Do not invent page content.
+
+| Tool | Required | Optional | Returns |
+|------|----------|----------|---------|
+| `smart_search` | `query` | `max_results` (1–50, default 10) | Search hits (`results[].url`, `snippet`) |
+| `smart_fetch` | `url` (http/https) | `timeout` (default 30s) | Page `markdown`, `title`, `url` |
+| `smart_dedup` | `texts` (string[]) | `threshold` (0–1, default 0.9) | Kept / removed indices or deduped texts |
+| `smart_context_gate` | `text` | `ratio` (default 0.5), `purpose` | `compressed`, `ratio`, token counts |
+| `smart_budget_guard` | `action`: `check` \| `count` \| `record` | `text` / `tokens` by action | Allowance, usage, or record ack |
+| `smart_memory` | `action`: `add` \| `search` \| `get` \| `delete` | `text` (add), `query` (search), `memory_id` (get/delete) | Shape depends on action |
+| `smart_pipe` | `template` **or** `steps` | `query`, `url`, `text` | Per-step results. Templates: `research`, `read`, `remember`. Not for a single step. |
 
 Skills shipped with this plugin:
 
@@ -77,9 +81,11 @@ Skills shipped with this plugin:
 | `smartgate-remember-and-recall` | Team memory |
 | `smartgate-usage-report` | Quota / usage (no content) |
 
-## Configure (mcp.json)
+## Configure
 
-Hosted endpoint: `POST https://smartgate.network/api/mcp` (Streamable HTTP). The plugin injects the key via `${SMARTGATE_API_KEY}`:
+**Marketplace install:** Plugins → SmartGate → Configure → `SMARTGATE_API_KEY`. The plugin `mcp.json` already uses `${SMARTGATE_API_KEY}`. Do not commit a real key.
+
+**Manual / reviewer fallback** (only if you are not using the plugin): merge this into `~/.cursor/mcp.json` (user) or `<project>/.cursor/mcp.json` (project), then restart Cursor. Replace the placeholder. If the plugin is also installed, delete this block so tools are not duplicated.
 
 ```json
 {
@@ -88,7 +94,7 @@ Hosted endpoint: `POST https://smartgate.network/api/mcp` (Streamable HTTP). The
       "type": "streamable-http",
       "url": "https://smartgate.network/api/mcp",
       "headers": {
-        "Authorization": "Bearer ${SMARTGATE_API_KEY}",
+        "Authorization": "Bearer sk_live_REPLACE_WITH_YOUR_KEY",
         "X-SmartGate-Agent-Platform": "cursor"
       }
     }
@@ -96,13 +102,19 @@ Hosted endpoint: `POST https://smartgate.network/api/mcp` (Streamable HTTP). The
 }
 ```
 
-Already have a manual `smartgate` entry in `~/.cursor/mcp.json`? Remove it before installing the plugin so tools are not duplicated.
+Hosted endpoint: `POST https://smartgate.network/api/mcp` (Streamable HTTP). Mint a key at [Dashboard → API Keys](https://smartgate.network).
 
-## Security
+## Data handling
 
-Tool calls send the URLs, queries, and text you provide to SmartGate. Do not commit secrets. Report issues to [support@smartgate.network](mailto:support@smartgate.network).
+This plugin does not run fetch, search, compression, or memory inside Cursor. Those steps run on the **hosted** gateway at `https://smartgate.network/api/mcp`. Cursor stays the host model.
 
-[Privacy](https://smartgate.network/privacy) · [Terms](https://smartgate.network/terms) · [SECURITY.md](SECURITY.md)
+- **In transit:** HTTPS + `Authorization: Bearer`. The plugin ships no secrets; you set `SMARTGATE_API_KEY` in Plugins → Configure.
+- **At rest:** we store a **hash** of API keys, not the raw secret. Teams are isolated by the key's tenant. Do not pass a foreign `team_id`.
+- **What is logged:** tool name, timestamp, token counts, and for fetch the **requested URL**. Retention: Free 7 days · Pro 30 · Teams 90 · Enterprise 180. See [Security](https://smartgate.network/docs/security) and [Logs](https://smartgate.network/docs/logs).
+- **Compression / dedup:** `smart_context_gate` (LLMLingua) and `smart_dedup` (SemHash) run on SmartGate servers, not locally. They shrink or drop overlapping text; they are **not** a PII redaction product. Do not put secrets or credentials in tool arguments or memory.
+- **What we do not do:** we are not an LLM proxy and do not train a public chatbot on your prompts as a consumer product. Billing card data is handled by Paddle, not stored by us.
+
+[Privacy Policy](https://smartgate.network/privacy) · [Terms](https://smartgate.network/terms) · [SECURITY.md](SECURITY.md) · [support@smartgate.network](mailto:support@smartgate.network)
 
 ## Troubleshooting
 
