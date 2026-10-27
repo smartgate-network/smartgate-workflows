@@ -3,3 +3,5 @@ docs/
 __pycache__/
 *.py[cod]
 .venv/
+*.pem
+*mcp-registry-key*

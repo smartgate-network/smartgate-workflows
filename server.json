@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "network.smartgate/smartgate",
+  "title": "SmartGate",
+  "description": "Hosted MCP: search, fetch, compress, dedup, budget, memory, pipelines. Not an LLM proxy.",
+  "version": "1.0.0",
+  "websiteUrl": "https://smartgate.network",
+  "repository": {
+    "url": "https://github.com/smartgate-network/smartgate-workflows",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://smartgate.network/api/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer sk_live_ key from https://smartgate.network Dashboard → API Keys",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

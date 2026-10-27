@@ -243,12 +243,73 @@ def validate_claude_plugin(errors: list[str]) -> None:
         errors.append(".mcp.json: do not read SMARTGATE_API_KEY from the user environment")
 
 
+MCP_URL = "https://smartgate.network/api/mcp"
+REGISTRY_NAME = "network.smartgate/smartgate"
+LIVE_KEY_RE = re.compile(r"sk_live_[A-Za-z0-9]{16,}")
+LISTING_SKIP_DIRS = {".git", "docs", "__pycache__", ".venv"}
+LISTING_SUFFIXES = {".json", ".md", ".py", ".yaml", ".yml", ".toml"}
+
+
+def validate_listing(errors: list[str]) -> None:
+    # ponytail: shape checks only; mcp-publisher is the schema authority
+    gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
+    if "*.pem" not in gitignore:
+        errors.append(".gitignore: must ignore *.pem")
+    if "*mcp-registry-key*" not in gitignore:
+        errors.append(".gitignore: must ignore *mcp-registry-key*")
+
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    if REGISTRY_NAME not in readme:
+        errors.append("README.md: must document network.smartgate/smartgate")
+
+    server_path = ROOT / "server.json"
+    if not server_path.is_file():
+        errors.append("server.json: missing")
+    else:
+        server = load_json(server_path)
+        if server.get("name") != REGISTRY_NAME:
+            errors.append(f"server.json: name must be {REGISTRY_NAME!r}")
+        if "packages" in server:
+            errors.append("server.json: do not publish packages")
+        desc = server.get("description") or ""
+        if len(desc) > 100:
+            errors.append(f"server.json: description maxLength 100, got {len(desc)}")
+        remotes = server.get("remotes") or []
+        remote = remotes[0] if remotes else {}
+        if remote.get("type") != "streamable-http":
+            errors.append("server.json: remotes[0].type must be streamable-http")
+        if remote.get("url") != MCP_URL:
+            errors.append(f"server.json: remotes[0].url must be {MCP_URL}")
+
+    gemini_path = ROOT / "gemini-extension.json"
+    if not gemini_path.is_file():
+        errors.append("gemini-extension.json: missing")
+    else:
+        gemini = load_json(gemini_path)
+        http_url = ((gemini.get("mcpServers") or {}).get("smartgate") or {}).get("httpUrl")
+        if http_url != MCP_URL:
+            errors.append(f"gemini-extension.json: mcpServers.smartgate.httpUrl must be {MCP_URL}")
+        settings = gemini.get("settings") or []
+        if not any(s.get("envVar") == "SMARTGATE_API_KEY" for s in settings):
+            errors.append("gemini-extension.json: settings must declare envVar SMARTGATE_API_KEY")
+
+    for path in ROOT.rglob("*"):
+        if not path.is_file() or path.suffix not in LISTING_SUFFIXES:
+            continue
+        if any(part in LISTING_SKIP_DIRS for part in path.parts):
+            continue
+        text = path.read_text(encoding="utf-8")
+        if LIVE_KEY_RE.search(text):
+            errors.append(f"{path.relative_to(ROOT)}: looks like a real sk_live_ token")
+
+
 def main() -> int:
     errors: list[str] = []
     validate_pipelines(errors)
     validate_skills(errors)
     validate_cursor_plugin(errors)
     validate_claude_plugin(errors)
+    validate_listing(errors)
 
     if errors:
         print("Validation failed:", file=sys.stderr)
