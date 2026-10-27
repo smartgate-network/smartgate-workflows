@@ -1,3 +1,10 @@
+---
+name: deep-reading
+description: >
+  Deep-read and compress a single known http(s) URL via SmartGate MCP.
+  Use when the user provides a link or asks to summarize docs, RFCs, or articles.
+---
+
 ## deep-reading
 
 Purpose: Fetch and compress a single user-known URL into condensed text for Host LLM deep reading, summarization, or Q&A.

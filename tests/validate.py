@@ -187,6 +187,12 @@ def validate_cursor_plugin(errors: list[str]) -> None:
         if "user-smartgate" in text:
             errors.append(f"{rel}: do not name the host-local user-smartgate server")
 
+    for path in sorted(ROOT.glob("workflows/**/SKILL.md")):
+        text = path.read_text(encoding="utf-8")
+        rel = path.relative_to(ROOT)
+        if not text.startswith("---") or "name:" not in text.split("---", 2)[1]:
+            errors.append(f"{rel}: missing YAML frontmatter name (Cursor reviews every SKILL.md)")
+
 
 def main() -> int:
     errors: list[str] = []

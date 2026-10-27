@@ -1,3 +1,10 @@
+---
+name: remember-and-recall
+description: >
+  Team-scoped long-term memory via SmartGate MCP (add, search, get, delete).
+  Use when the user says remember, recall, or team memory.
+---
+
 ## remember-and-recall
 
 Purpose: Persist or retrieve team-scoped facts, research conclusions, and config notes across sessions for downstream grounding.

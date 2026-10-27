@@ -1,3 +1,9 @@
+---
+name: <workflow-name>
+description: >
+  <One line: what this workflow does and when to use it.>
+---
+
 ## <workflow-name>
 
 Purpose: <One or two sentences: what problem this solves and what it produces>

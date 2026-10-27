@@ -11,7 +11,11 @@
     {
       "name": "smartgate",
       "source": ".",
-      "description": "Official SmartGate MCP plugin: search, fetch, compress, dedup, budget, memory, and multi-step pipelines."
+      "description": "Official SmartGate MCP plugin: search, fetch, compress, dedup, budget, memory, and multi-step pipelines.",
+      "homepage": "https://smartgate.network",
+      "repository": "https://github.com/smartgate-network/smartgate-workflows",
+      "license": "MIT",
+      "logo": "assets/logo.png"
     }
   ]
 }

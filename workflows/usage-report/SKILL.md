@@ -1,3 +1,10 @@
+---
+name: usage-report
+description: >
+  Query team token allowance and usage via SmartGate MCP.
+  Use for quota, budget, or usage questions — not content production.
+---
+
 ## usage-report
 
 Purpose: Query token allowance and usage for the team tied to the current API key — pre-flight checks or admin reports only; produces no content.

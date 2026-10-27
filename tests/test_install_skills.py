@@ -38,9 +38,11 @@ class InstallSkillsTest(unittest.TestCase):
             generated = (Path(tmp) / "smartgate-deep-reading" / "SKILL.md").read_text(encoding="utf-8")
 
             marker = "## deep-reading"
-            start = generated.index(marker)
-            end = start + len(upstream)
-            self.assertEqual(generated[start:end], upstream)
+            body = upstream[upstream.index(marker) :].rstrip()
+            self.assertEqual(
+                generated[generated.index(marker) :].split("## Execute")[0].rstrip(),
+                body,
+            )
 
     def test_unknown_client_fails(self) -> None:
         proc = subprocess.run(

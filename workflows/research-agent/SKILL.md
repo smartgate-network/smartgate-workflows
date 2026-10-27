@@ -1,3 +1,10 @@
+---
+name: research-agent
+description: >
+  Multi-source web research when no definitive URL exists via SmartGate MCP.
+  Use for competitor analysis, industry trends, surveys, or news digests.
+---
+
 ## research-agent
 
 Purpose: When no definitive URL exists, collect material from multiple web sources, deduplicate and compress it, and return structured research ready for Host LLM analysis.

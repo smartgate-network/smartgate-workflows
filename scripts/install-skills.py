@@ -43,6 +43,15 @@ def skill_name(manifest: dict, workflow_id: str) -> str:
     return f"{prefix}{workflow_id}"
 
 
+def strip_frontmatter(text: str) -> str:
+    if not text.startswith("---"):
+        return text
+    end = text.find("\n---", 3)
+    if end == -1:
+        return text
+    return text[end + 4:].lstrip("\n")
+
+
 def build_workflow_skill(
     manifest: dict,
     workflow_id: str,
@@ -53,7 +62,7 @@ def build_workflow_skill(
     if not upstream_path.is_file():
         print(f"Missing workflow: {upstream_path}", file=sys.stderr)
         sys.exit(1)
-    upstream = upstream_path.read_text(encoding="utf-8")
+    upstream = strip_frontmatter(upstream_path.read_text(encoding="utf-8"))
     name = skill_name(manifest, workflow_id)
     parts = [frontmatter(name, description), upstream.rstrip()]
     execute = execute_sections.get(workflow_id)
