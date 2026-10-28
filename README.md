@@ -12,11 +12,15 @@ Official **[SmartGate](https://smartgate.network)** plugin for [Cursor](https://
 
 On the surface: [Smart Research](https://smartgate.network/solutions), decisions, knowledge, and monitoring — no MCP required. Under the hood: an MCP-native algorithmic gateway with five capabilities (Research, Context, Memory, Control, Pipeline) powered by seven `smart_*` primitives. Human interface (Web) + agent interface (MCP/API). Not a chatbot, search app, or model router. The host model stays on the client.
 
-Plugin mark for Cursor Marketplace is the 1:1 shield [`assets/logo.png`](assets/logo.png). The banner is the official site OG card.
+Plugin mark for Cursor Marketplace is the 1:1 shield [`assets/logo.png`](assets/logo.png). The banner is the official site OG card. The research demo is the same GIF as [the homepage](https://smartgate.network/).
 
 ## What is SmartGate MCP
 
 Don't rebuild research infrastructure for every agent. Connect once over Streamable HTTP; the gateway fetches, searches, compresses, deduplicates, remembers, and hard-caps tool traffic before it reaches your model provider.
+
+<a href="https://smartgate.network/">
+  <img src="https://smartgate.network/_static/gif/Development-Research2.gif" width="640" alt="Cursor Agent using SmartGate to research product requirements">
+</a>
 
 | Capability | What the agent does | Product |
 |------------|---------------------|---------|
