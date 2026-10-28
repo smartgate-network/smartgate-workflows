@@ -1,8 +1,10 @@
 # SmartGate
 
-<a href="https://smartgate.network">
-  <img src="https://smartgate.network/og.jpg" width="640" alt="SmartGate — the intelligence layer between AI and the world">
-</a>
+<p align="center">
+  <a href="https://smartgate.network">
+    <img src="https://smartgate.network/og.jpg" width="100%" alt="SmartGate — the intelligence layer between AI and the world">
+  </a>
+</p>
 
 **AI Intelligence Layer — not another assistant or LLM proxy.**
 
@@ -18,9 +20,11 @@ Plugin mark for Cursor Marketplace is the 1:1 shield [`assets/logo.png`](assets/
 
 Don't rebuild research infrastructure for every agent. Connect once over Streamable HTTP; the gateway fetches, searches, compresses, deduplicates, remembers, and hard-caps tool traffic before it reaches your model provider.
 
-<a href="https://smartgate.network/">
-  <img src="https://smartgate.network/_static/gif/Development-Research2.gif" width="640" alt="Cursor Agent using SmartGate to research product requirements">
-</a>
+<p align="center">
+  <a href="https://smartgate.network/">
+    <img src="https://smartgate.network/_static/gif/Development-Research2.gif" width="100%" alt="Cursor Agent using SmartGate to research product requirements">
+  </a>
+</p>
 
 | Capability | What the agent does | Product |
 |------------|---------------------|---------|
