@@ -57,6 +57,16 @@ gemini extensions install https://github.com/smartgate-network/smartgate-workflo
 
 Set `SMARTGATE_API_KEY` when the CLI prompts. Manifest: `gemini-extension.json`.
 
+### OpenClaw
+
+Do not open an issue or PR on `openclaw/openclaw`. Install the ClawHub skill, then add the hosted MCP:
+
+```bash
+openclaw skills install @smartgate.network/smartgate
+```
+
+Connect: **Settings → MCP → Add server** (Streamable HTTP, `https://smartgate.network/api/mcp`, `Authorization: Bearer ${SMARTGATE_API_KEY}`). Skill source: `skills/smartgate/SKILL.md`.
+
 ## First run
 
 After the MCP server shows as connected, try:
