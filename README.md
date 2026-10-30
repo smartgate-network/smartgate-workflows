@@ -132,6 +132,15 @@ Install from the Kilo Marketplace, or connect the hosted MCP the same way as Cli
 
 Add a remote Streamable HTTP MCP in Crush config. URL `https://smartgate.network/api/mcp`, header `Authorization: Bearer ${SMARTGATE_API_KEY}`.
 
+### Other MCP clients (LibreChat, Open WebUI, Dify)
+
+Any host that supports remote Streamable HTTP can connect with:
+
+- URL: `https://smartgate.network/api/mcp`
+- Header: `Authorization: Bearer ${SMARTGATE_API_KEY}`
+- Official Registry name: `network.smartgate/smartgate`
+
+
 ## First run
 
 After the MCP server shows as connected, try:
