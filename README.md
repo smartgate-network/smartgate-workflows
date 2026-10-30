@@ -75,6 +75,59 @@ openclaw skills install @smartgate.network/smartgate
 
 Connect: **Settings → MCP → Add server** (Streamable HTTP, `https://smartgate.network/api/mcp`, `Authorization: Bearer ${SMARTGATE_API_KEY}`). Skill source: `skills/smartgate/SKILL.md`.
 
+### Zed
+
+Settings → AI → MCP Servers → Add Server → **Add Remote Server**:
+
+```json
+{
+  "context_servers": {
+    "smartgate": {
+      "url": "https://smartgate.network/api/mcp",
+      "headers": {
+        "Authorization": "Bearer ${SMARTGATE_API_KEY}",
+        "X-SmartGate-Agent-Platform": "zed"
+      }
+    }
+  }
+}
+```
+
+Official Registry name: `network.smartgate/smartgate`. If it already appears under [Zed MCP extensions](https://zed.dev/extensions?filter=context-servers), install from there instead.
+
+### VS Code / GitHub Copilot
+
+Command Palette → **MCP: Add Server** → **HTTP**. URL `https://smartgate.network/api/mcp`. Set header `Authorization` = `Bearer ${SMARTGATE_API_KEY}`.
+
+Or browse the gallery: Extensions view → search `@mcp smartgate`.
+
+### OpenCode
+
+Add a remote MCP in OpenCode config:
+
+```json
+{
+  "mcp": {
+    "smartgate": {
+      "type": "remote",
+      "url": "https://smartgate.network/api/mcp",
+      "headers": {
+        "Authorization": "Bearer ${SMARTGATE_API_KEY}",
+        "X-SmartGate-Agent-Platform": "opencode"
+      }
+    }
+  }
+}
+```
+
+### Goose
+
+Add a Streamable HTTP extension to `https://smartgate.network/api/mcp` with `Authorization: Bearer ${SMARTGATE_API_KEY}` and `X-SmartGate-Agent-Platform: goose`. Skill source: `skills/smartgate/SKILL.md`.
+
+### Kilo Code
+
+Install from the Kilo Marketplace, or connect the hosted MCP the same way as Cline — see [`llms-install.md`](llms-install.md).
+
 ## First run
 
 After the MCP server shows as connected, try:
