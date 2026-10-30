@@ -138,6 +138,16 @@ Install from the Kilo Marketplace when listed. Same hosted MCP and `llms-install
 
 Add a remote Streamable HTTP MCP in Crush config. URL `https://smartgate.network/api/mcp`, header `Authorization: Bearer ${SMARTGATE_API_KEY}`. Do not open a core-repo integration issue on `charmbracelet/crush`.
 
+### Other MCP clients (LibreChat, Open WebUI, Dify)
+
+These hosts can attach a remote Streamable HTTP MCP. They do not need a SmartGate fork.
+
+- URL: `https://smartgate.network/api/mcp`
+- Header: `Authorization: Bearer ${SMARTGATE_API_KEY}`
+- Official Registry name: `network.smartgate/smartgate`
+
+Do not open issues on LibreChat, Open WebUI, or Dify asking them to ship SmartGate in-tree.
+
 ## First run
 
 After the MCP server shows as connected, try:
