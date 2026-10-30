@@ -134,6 +134,10 @@ Until then, add a Streamable HTTP extension to `https://smartgate.network/api/mc
 
 Install from the Kilo Marketplace when listed. Same hosted MCP and `llms-install.md` as Cline. Do not file a second Cline marketplace issue.
 
+### Crush
+
+Add a remote Streamable HTTP MCP in Crush config. URL `https://smartgate.network/api/mcp`, header `Authorization: Bearer ${SMARTGATE_API_KEY}`. Do not open a core-repo integration issue on `charmbracelet/crush`.
+
 ## First run
 
 After the MCP server shows as connected, try:
