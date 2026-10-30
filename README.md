@@ -75,6 +75,65 @@ openclaw skills install @smartgate.network/smartgate
 
 Connect: **Settings → MCP → Add server** (Streamable HTTP, `https://smartgate.network/api/mcp`, `Authorization: Bearer ${SMARTGATE_API_KEY}`). Skill source: `skills/smartgate/SKILL.md`.
 
+### Zed
+
+Zed Agent supports remote Streamable HTTP. Do not open an issue or PR on `zed-industries/zed` asking them to bundle SmartGate.
+
+Settings → AI → MCP Servers → Add Server → **Add Remote Server**:
+
+```json
+{
+  "context_servers": {
+    "smartgate": {
+      "url": "https://smartgate.network/api/mcp",
+      "headers": {
+        "Authorization": "Bearer ${SMARTGATE_API_KEY}",
+        "X-SmartGate-Agent-Platform": "zed"
+      }
+    }
+  }
+}
+```
+
+Official Registry name: `network.smartgate/smartgate`. If it already appears under [Zed MCP extensions](https://zed.dev/extensions?filter=context-servers), install from there instead.
+
+### VS Code / GitHub Copilot
+
+Command Palette → **MCP: Add Server** → **HTTP**. URL `https://smartgate.network/api/mcp`. Set header `Authorization` = `Bearer ${SMARTGATE_API_KEY}`.
+
+Or browse the gallery: Extensions view → search `@mcp smartgate`. Do not open a product-integration PR on `microsoft/vscode`.
+
+### OpenCode
+
+Add a remote MCP in OpenCode config (do not open a core-repo issue on `anomalyco/opencode`):
+
+```json
+{
+  "mcp": {
+    "smartgate": {
+      "type": "remote",
+      "url": "https://smartgate.network/api/mcp",
+      "headers": {
+        "Authorization": "Bearer ${SMARTGATE_API_KEY}",
+        "X-SmartGate-Agent-Platform": "opencode"
+      }
+    }
+  }
+}
+```
+
+If OpenCode later exposes a plugin/MCP catalog listing, use that. The config above is enough to connect.
+
+### Goose
+
+Do not open an issue or PR on `aaif-goose/goose` asking them to bundle SmartGate. Prefer their Extensions / Skills Marketplace when the listing is public.
+
+Until then, add a Streamable HTTP extension to `https://smartgate.network/api/mcp` with `Authorization: Bearer ${SMARTGATE_API_KEY}` and `X-SmartGate-Agent-Platform: goose`. Skill source: `skills/smartgate/SKILL.md`.
+
+### Kilo Code
+
+Install from the Kilo Marketplace when listed. Same hosted MCP and `llms-install.md` as Cline. Do not file a second Cline marketplace issue.
+
 ## First run
 
 After the MCP server shows as connected, try:
