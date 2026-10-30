@@ -109,13 +109,17 @@ Add a remote MCP in OpenCode config (do not open a core-repo issue on `anomalyco
 
 ```json
 {
+  "$schema": "https://opencode.ai/config.json",
   "mcp": {
-    "smartgate": {
-      "type": "remote",
-      "url": "https://smartgate.network/api/mcp",
-      "headers": {
-        "Authorization": "Bearer ${SMARTGATE_API_KEY}",
-        "X-SmartGate-Agent-Platform": "opencode"
+    "servers": {
+      "smartgate": {
+        "type": "remote",
+        "url": "https://smartgate.network/api/mcp",
+        "oauth": false,
+        "headers": {
+          "Authorization": "Bearer {env:SMARTGATE_API_KEY}",
+          "X-SmartGate-Agent-Platform": "opencode"
+        }
       }
     }
   }
