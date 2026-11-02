@@ -75,6 +75,36 @@ openclaw skills install @smartgate.network/smartgate
 
 Connect: **Settings → MCP → Add server** (Streamable HTTP, `https://smartgate.network/api/mcp`, `Authorization: Bearer ${SMARTGATE_API_KEY}`). Skill source: `skills/smartgate/SKILL.md`.
 
+### Hermes
+
+From the [Hermes MCP catalog](https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp):
+
+```bash
+hermes mcp install smartgate
+```
+
+Paste the Dashboard `sk_live_…` key when prompted (`MCP_SMARTGATE_API_KEY`). Free plan includes 2M tokens/month.
+
+Or add the hosted server in `~/.hermes/config.yaml` and the key in `~/.hermes/.env`:
+
+```yaml
+mcp_servers:
+  smartgate:
+    url: "https://smartgate.network/api/mcp"
+    headers:
+      Authorization: "Bearer ${SMARTGATE_API_KEY}"
+      X-SmartGate-Agent-Platform: hermes
+```
+
+Skill (same ClawHub listing):
+
+```bash
+hermes skills search smartgate --source clawhub
+hermes skills install clawhub/smartgate.network/smartgate
+```
+
+Or add this repo as a skill tap: `hermes skills tap add smartgate-network/smartgate-workflows`. Official Registry name: `network.smartgate/smartgate`.
+
 ### Zed
 
 Settings → AI → MCP Servers → Add Server → **Add Remote Server**:
