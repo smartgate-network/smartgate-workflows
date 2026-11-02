@@ -53,7 +53,7 @@ Official MCP Registry name: [`network.smartgate/smartgate`](https://registry.mod
 
 ### Claude (claude.ai / Cowork / Claude Code)
 
-1. Add **SmartGate** from [Anthropic's directory](https://claude.ai/directory/manage) , or load this repo locally: `claude --plugin-dir .`
+1. Add **SmartGate** from [Anthropic's directory](https://claude.ai/directory/manage), or load this repo locally: `claude --plugin-dir .`
 2. When Claude prompts for plugin configuration, set `SMARTGATE_API_KEY`. In Claude Code you can also run `/plugin configure @smartgate`
 3. Confirm the connector: on claude.ai / Cowork use the plugin's **Connectors** tab; in Claude Code run `/mcp` and look for `plugin:smartgate:smartgate`
 
@@ -83,7 +83,7 @@ From the [Hermes MCP catalog](https://hermes-agent.nousresearch.com/docs/user-gu
 hermes mcp install smartgate
 ```
 
-Paste the Dashboard `sk_live_…` key when prompted (`MCP_SMARTGATE_API_KEY`). Free plan includes 2M tokens/month.
+Paste the Dashboard `sk_live_…` key when prompted (`MCP_SMARTGATE_API_KEY`).
 
 Or add the hosted server in `~/.hermes/config.yaml` and the key in `~/.hermes/.env`:
 
@@ -96,14 +96,20 @@ mcp_servers:
       X-SmartGate-Agent-Platform: hermes
 ```
 
-Skill (same ClawHub listing):
+Skill (ClawHub):
 
 ```bash
 hermes skills search smartgate --source clawhub
 hermes skills install clawhub/smartgate.network/smartgate
 ```
 
-Or add this repo as a skill tap: `hermes skills tap add smartgate-network/smartgate-workflows`. Official Registry name: `network.smartgate/smartgate`.
+Or add this repo as a skill tap: `hermes skills tap add smartgate-network/smartgate-workflows`.
+
+### AutoGPT
+
+From AutoGPT's hosted MCP catalog, select **SmartGate** and paste the Dashboard `sk_live_…` key as the access token. Paste the key only — the client adds `Bearer`.
+
+Or add an MCP Tool block: URL `https://smartgate.network/api/mcp`, auth Bearer, access token = Dashboard API key.
 
 ### Zed
 
@@ -123,7 +129,7 @@ Settings → AI → MCP Servers → Add Server → **Add Remote Server**:
 }
 ```
 
-Official Registry name: `network.smartgate/smartgate`. If it already appears under [Zed MCP extensions](https://zed.dev/extensions?filter=context-servers), install from there instead.
+Or install from [Zed MCP extensions](https://zed.dev/extensions?filter=context-servers) if SmartGate is listed there.
 
 ### VS Code / GitHub Copilot
 
@@ -156,7 +162,7 @@ Add a remote MCP in OpenCode config:
 
 ### Goose
 
-Add a Streamable HTTP extension to `https://smartgate.network/api/mcp` with `Authorization: Bearer ${SMARTGATE_API_KEY}` and `X-SmartGate-Agent-Platform: goose`. Skill source: `skills/smartgate/SKILL.md`.
+Add a Streamable HTTP extension: URL `https://smartgate.network/api/mcp`, header `Authorization: Bearer ${SMARTGATE_API_KEY}`, `X-SmartGate-Agent-Platform: goose`. Skill source: `skills/smartgate/SKILL.md`.
 
 ### Kilo Code
 
@@ -166,14 +172,53 @@ Install from the Kilo Marketplace, or connect the hosted MCP the same way as Cli
 
 Add a remote Streamable HTTP MCP in Crush config. URL `https://smartgate.network/api/mcp`, header `Authorization: Bearer ${SMARTGATE_API_KEY}`.
 
-### Other MCP clients (LibreChat, Open WebUI, Dify)
+### Cherry Studio
+
+Settings → MCP → MCP Servers → Add. Import from JSON (type must be `streamableHttp`) or Quick Create → Streamable HTTP:
+
+```json
+{
+  "mcpServers": {
+    "smartgate": {
+      "type": "streamableHttp",
+      "url": "https://smartgate.network/api/mcp",
+      "headers": {
+        "Authorization": "Bearer ${SMARTGATE_API_KEY}"
+      }
+    }
+  }
+}
+```
+
+Enable the server, then Work → Agent → Edit → MCP and bind it.
+
+### AnythingLLM
+
+Settings → Agent Skills, or edit `plugins/anythingllm_mcp_servers.json` (`type` is `streamable`, not `streamable-http`):
+
+```json
+{
+  "mcpServers": {
+    "smartgate": {
+      "type": "streamable",
+      "url": "https://smartgate.network/api/mcp",
+      "headers": {
+        "Authorization": "Bearer ${SMARTGATE_API_KEY}"
+      }
+    }
+  }
+}
+```
+
+Reload MCP servers in the UI, start SmartGate, then enable its tools for the workspace.
+
+### Other MCP clients (LibreChat, Open WebUI, Dify, Langflow, Flowise, n8n)
 
 Any host that supports remote Streamable HTTP can connect with:
 
 - URL: `https://smartgate.network/api/mcp`
 - Header: `Authorization: Bearer ${SMARTGATE_API_KEY}`
 - Official Registry name: `network.smartgate/smartgate`
-
 
 ## First run
 
